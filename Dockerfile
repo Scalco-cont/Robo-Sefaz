@@ -5,8 +5,8 @@ WORKDIR /app
 # Força o Python a imprimir os logs imediatamente no console (desliga o buffer)
 ENV PYTHONUNBUFFERED=1
 
-# Instalar Firefox ESR e wget
-RUN apt-get update && apt-get install -y \
+# Instalar Firefox ESR e wget sem as centenas de pacotes de audio e video inuteis
+RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     firefox-esr \
     && rm -rf /var/lib/apt/lists/*
