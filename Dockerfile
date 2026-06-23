@@ -2,6 +2,9 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
+# Força o Python a imprimir os logs imediatamente no console (desliga o buffer)
+ENV PYTHONUNBUFFERED=1
+
 # Instalar Firefox ESR e wget
 RUN apt-get update && apt-get install -y \
     wget \
