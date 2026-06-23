@@ -110,8 +110,9 @@ def emitir_guia(inscricaoEstadual, referencia, codigo, chave_nfe, dataPagamento,
         inscricao_doc.click()
         inscricao_doc.clear()
         time.sleep(0.5)
-        # Digita caractere por caractere para o JavaScript do site reconhecer
-        for char in str(inscricaoEstadual):
+        # Digita caractere por caractere APENAS OS NUMEROS (para o JavaScript/Mascara do site funcionar)
+        ie_limpa = ''.join(filter(str.isdigit, str(inscricaoEstadual)))
+        for char in ie_limpa:
             inscricao_doc.send_keys(char)
             time.sleep(0.05)
         
