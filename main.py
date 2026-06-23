@@ -27,6 +27,12 @@ def emitir_guia(inscricaoEstadual, referencia, codigo, chave_nfe, dataPagamento,
     firefox_options.add_argument("--window-size=1920,1080")
     firefox_options.add_argument("--start-maximized")
     
+    # DISFARCE DO NAVEGADOR:
+    # Sites do governo costumam bloquear navegadores "Headless". Aqui disfarçamos o robô como um Chrome de Windows normal.
+    firefox_options.set_preference("general.useragent.override", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+    firefox_options.set_preference("dom.webdriver.enabled", False)
+    firefox_options.set_preference("useAutomationExtension", False)
+    
     # Configurações de download para Firefox
     firefox_options.set_preference("browser.download.folderList", 2)
     firefox_options.set_preference("browser.download.dir", download_dir)
