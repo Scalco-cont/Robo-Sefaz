@@ -100,7 +100,13 @@ def emitir_guia(inscricaoEstadual, referencia, codigo, chave_nfe, dataPagamento,
         # Preenchimento comum para ambos os códigos
         print("Preenchendo os campos restantes...")
         inscricao_doc = wait.until(EC.visibility_of_element_located((By.ID, "numrDocumento")))
-        inscricao_doc.send_keys(inscricaoEstadual)
+        inscricao_doc.click()
+        inscricao_doc.clear()
+        time.sleep(0.5)
+        # Digita caractere por caractere para o JavaScript do site reconhecer
+        for char in str(inscricaoEstadual):
+            inscricao_doc.send_keys(char)
+            time.sleep(0.1)
         time.sleep(2)
         
         # Re-executa o script do tributo por segurança
