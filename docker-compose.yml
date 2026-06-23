@@ -13,5 +13,6 @@ services:
       # MAPEAMENTO DA REDE
       - '/sv-scalco/C L I E N T E S:/sv-scalco/C L I E N T E S'
       - '/sv-scalco/Trabalho:/sv-scalco/Trabalho'
+      - '/sv-scalco/Sistemas:/sv-scalco/Sistemas'
     environment:
       - TZ=America/Cuiaba
