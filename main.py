@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import TimeoutException, NoAlertPresentException
 import time
@@ -106,7 +107,11 @@ def emitir_guia(inscricaoEstadual, referencia, codigo, chave_nfe, dataPagamento,
         # Digita caractere por caractere para o JavaScript do site reconhecer
         for char in str(inscricaoEstadual):
             inscricao_doc.send_keys(char)
-            time.sleep(0.1)
+            time.sleep(0.05)
+        
+        # ESSENCIAL: Disparar os eventos de validacao da Sefaz
+        inscricao_doc.send_keys(Keys.TAB)
+        driver.execute_script("arguments[0].dispatchEvent(new Event('change', { bubbles: true })); arguments[0].dispatchEvent(new Event('blur', { bubbles: true }));", inscricao_doc)
         time.sleep(2)
         
         # Re-executa o script do tributo por segurança
