@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: robo_sefaz
+    restart: unless-stopped
+    ports:
+      - '3940:3940'
+    expose:
+      - '3940'
+    volumes:
+      # MAPEAMENTO DA REDE (C L I E N T E S)
+      - '/sv-scalco/C L I E N T E S:/sv-scalco/C L I E N T E S'
+    environment:
+      - TZ=America/Cuiaba
