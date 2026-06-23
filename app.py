@@ -257,7 +257,7 @@ if __name__ == '__main__':
     print("="*60)
     print("📌 Multi-usuário: Suporta múltiplos clientes simultâneos")
     print("📌 Otimizado: Reutiliza navegador para múltiplas guias")
-    print("📌 Porta: 3939")
+    print("📌 Porta: 3940")
     print("="*60 + "\n")
     
-    app.run(debug=True, host='0.0.0.0', port=3939, threaded=True)
+    app.run(debug=True, host='0.0.0.0', port=3940, threaded=True)
