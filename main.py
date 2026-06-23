@@ -7,6 +7,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import TimeoutException, NoAlertPresentException
 import time
 import os
+import traceback
 
 
 def emitir_guia(inscricaoEstadual, referencia, codigo, chave_nfe, dataPagamento, vlr_tributo, vlr_correcao, atraso, juros_nota, nome, nfe, caminhoDestino):
@@ -22,6 +23,8 @@ def emitir_guia(inscricaoEstadual, referencia, codigo, chave_nfe, dataPagamento,
     
     firefox_options = Options()
     firefox_options.add_argument("--headless")
+    firefox_options.add_argument("--window-size=1920,1080")
+    firefox_options.add_argument("--start-maximized")
     
     # Configurações de download para Firefox
     firefox_options.set_preference("browser.download.folderList", 2)
@@ -207,12 +210,27 @@ def emitir_guia(inscricaoEstadual, referencia, codigo, chave_nfe, dataPagamento,
         
         return True
 
-    except TimeoutException:
+    except TimeoutException as e:
         print(f"\n✗ ERRO: Timeout ao processar NFE {nfe}")
         print("O site pode estar fora do ar ou muito lento.")
+        try:
+            # Tira um print da tela para sabermos onde travou
+            print_caminho = os.path.join(download_dir, f"ERRO_TELA_{nfe}.png")
+            driver.save_screenshot(print_caminho)
+            print(f"📸 Print da tela salvo em: {print_caminho}")
+        except Exception:
+            pass
+        traceback.print_exc()
         return False
     except Exception as e:
         print(f"\n✗ ERRO ao processar NFE {nfe}: {e}")
+        try:
+            print_caminho = os.path.join(download_dir, f"ERRO_TELA_{nfe}.png")
+            driver.save_screenshot(print_caminho)
+            print(f"📸 Print da tela salvo em: {print_caminho}")
+        except Exception:
+            pass
+        traceback.print_exc()
         return False
     finally:
         print("Fechando o navegador...")
