@@ -128,11 +128,24 @@ def emitir_guia(inscricaoEstadual, referencia, codigo, chave_nfe, dataPagamento,
             driver.execute_script("document.getElementById('tributo').value = '2817'; eventoTributo('2817');")
         time.sleep(3)
         
+        # TRUQUE DO SITE: O campo numrNota1 aparece e some no primeiro clique no vencimento.
+        # Solucao: clicar no vencimento, voltar para a IE, e clicar novamente no vencimento para estabilizar.
+        print("Estabilizando campo da nota (clique duplo no vencimento)...")
+        wait.until(EC.element_to_be_clickable((By.ID, "dataVencimento"))).click()
+        time.sleep(1)
+        
+        # Volta para o campo da IE para resetar o estado do formulario
+        driver.find_element(By.ID, "numrDocumento").click()
+        time.sleep(1)
+        
+        # Clica novamente no vencimento - agora o campo de nota fica estavel
         wait.until(EC.element_to_be_clickable((By.ID, "dataVencimento"))).click()
         time.sleep(2)
         
+        # Agora o campo numrNota1 deve estar visivel e estavel
         chave = wait.until(EC.visibility_of_element_located((By.ID, "numrNota1")))
         chave.send_keys(chave_nfe)
+        print(f"Chave NFe preenchida: {chave_nfe}")
         time.sleep(2)
         
         data_venc = driver.find_element(By.ID, "dataVencimento")
