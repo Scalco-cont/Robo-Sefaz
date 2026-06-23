@@ -10,7 +10,8 @@ services:
     expose:
       - '3940'
     volumes:
-      # MAPEAMENTO DA REDE (C L I E N T E S)
+      # MAPEAMENTO DA REDE
       - '/sv-scalco/C L I E N T E S:/sv-scalco/C L I E N T E S'
+      - '/sv-scalco/Trabalho:/sv-scalco/Trabalho'
     environment:
       - TZ=America/Cuiaba
