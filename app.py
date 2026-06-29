@@ -165,6 +165,12 @@ def serve_js():
     return send_from_directory(static_dir, 'index.js')
 
 
+@app.route('/favicon.ico')
+def favicon():
+    static_dir = os.path.join(os.path.dirname(__file__), 'static')
+    return send_from_directory(static_dir, 'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+
 @app.route('/api/emitir-guia', methods=['POST'])
 def emitir_guia_api():
     """
